@@ -23,6 +23,7 @@ repositories {
 dependencies {
     // Use Scala 2.13 in our library project
     implementation 'org.scala-lang:scala-library:2.13.11'
+    implementation "org.scala-lang:scala-compiler:2.13.11"
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.1.1-jre'
@@ -46,4 +47,11 @@ java {
 application {
     // Define the main class for the application.
     mainClass = 'funcional.template.App'
+}
+
+task repl(type:JavaExec) {
+    main = "scala.tools.nsc.MainGenericRunner"
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput System.in
+    args '-usejavacp'
 }
